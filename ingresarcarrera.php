@@ -8,7 +8,48 @@
     <link rel="stylesheet" href="./styles/style.css">
 </head>
 <body>
-    <?php include "header.php"
+    <?php 
+    require('./conexion.php');
+    include "headernosearch.php";
+    $sql = "CREATE TABLE IF NOT EXISTS carrera (
+         id_carrera INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY, 
+        cod_carrera varchar(20) NOT NULL,
+        nro_resolucion varchar(20) NOT NULL,
+        nro_plan varchar(20) NOT NULL,
+        denominacion VARCHAR(100) NOT NULL,
+        titulo_otorgado VARCHAR(50) NOT NULL,
+        duracion VARCHAR(10) NOT NULL,
+        val_min_aprobacion INT(2),
+        val_max_aprobacion INT(2),
+        estado_carrera VARCHAR(10) NOT NULL
+    )";
+    if ($conn->query($sql) === false ) {
+        echo "Error al crear la tabla: " . $conn->error;
+    }; 
+    
+    // Obtener los datos del formulario
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        $cod_carrera = $_POST['cod_carrera'];
+        $nro_resolucion = $_POST['nro_resolucion'];
+        $nro_plan = $_POST['nro_plan'];
+        $denominacion = $_POST['denominacion'];
+        $titulo_otorgado = $_POST['titulo_otorgado'];
+        $estado_carrera = $_POST['estado_carrera'];
+        $duracion = $_POST['duracion'];
+        $val_min_aprobacion = $_POST['val_min_aprobacion'];
+        $val_max_aprobacion = $_POST['val_max_aprobacion'];
+    
+        $sql = "INSERT INTO carrera (cod_carrera, nro_resolucion, nro_plan, denominacion, titulo_otorgado, estado_carrera, duracion, val_min_aprobacion, val_max_aprobacion) VALUES ('$cod_carrera', '$nro_resolucion', '$nro_plan', '$denominacion','$titulo_otorgado', '$estado_carrera', '$duracion','$val_min_aprobacion','$val_max_aprobacion')";
+    
+        if ($conn->query($sql) === TRUE) {
+            header("Location:ingresarcarrera.php");
+            exit();
+        } else {
+            echo "Error al insertar el registro: " . $conn->error;
+            header("Location:index.php");
+        }
+    }
+    
     ?>
 <main>
     <!-- Contenedor principal -->
@@ -29,7 +70,7 @@
                     </h6> -->
                 </div>
                 <div>
-                    <form class="row g-3 m-4" method="post" action="insertar.php">
+                    <form class="row g-3 m-4" method="post" action="ingresarcarrera.php">
 
             <!-- Ver: si hacer autoincremental; si se hace, descomentar -->
 
@@ -37,13 +78,11 @@
                         <label class="form-label text-black-50" for="id_carrera">Id de Carrera*:</label>
                         <input class="form-control" type="text" name="id_carrera" id="id_carrera" required>
                       </div> -->
-
                   <!-- ya está denominacion de carrera, iria igual nombre? -->
-
-                         <div class="col-md-6 position-relative">
+                         <!-- <div class="col-md-6 position-relative">
                             <label class="form-label text-black-50" for="nombre_carrera">Nombre de Carrera*:</label>
                             <input class="form-control" type="text" name="nombre_carrera" id="nombre_carrera" required>
-                        </div> 
+                        </div>  -->
                         
                         <div class="col-md-6 position-relative">
                             <label class="form-label text-black-50" for="cod_carrera">Código de  Carrera*:</label>
@@ -71,17 +110,13 @@
                             <select class="form-select form-select mb-3" name="estado_carrera" id="estado_carrera" aria-label="select estado_carrera">
                                 <option selected>Activo</option>
                                 <option value="1">Activo</option>
-                                <option value="2">Inactivo</option>
+                                <option value="0">Inactivo</option>
                               </select>
                               
                         </div>
                         <div class="col-md-3 position-relative">
                             <label class="form-label text-black-50" for="duracion">Duración*:</label>
                             <input class="form-control" type="text" name="duracion" id="duracion" required>
-                        </div>
-                        <div class="col-md-3 position-relative">
-                            <label class="form-label text-black-50" for="periodo">Periodo*:</label>
-                            <input class="form-control" type="text" name="periodo" id="periodo" required>
                         </div>
                         <div class="col-md-4 position-relative">
                           <label class="form-label text-black-50 text-nowrap" for="val_min_aprobacion">Valor mínimo de aprobación*:</label>
@@ -137,7 +172,6 @@
         <!-- Fin de contenido -->
       </div>
       <!-- Fin de contenedor principal -->
- </main>
  </main>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
   </body>

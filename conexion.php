@@ -1,5 +1,6 @@
 <?php
 // Configuración de la conexión a la base de datos
+
 $dbhost = 'localhost';
 $dbuser = 'c2331051_isft';
 $dbpass = '48muKOwiwo';
