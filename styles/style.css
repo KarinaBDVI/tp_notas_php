@@ -1,0 +1,97 @@
+*{
+    margin:0;
+    padding:0;
+    
+}
+
+body{
+    height:100vh;
+    overflow:auto;
+}
+.menu{
+    background: #01417F; 
+}
+.min-height {
+    min-height: 100%;
+    min-width: 100%;
+  }
+
+.sidebar-height{
+    min-height:100vh;
+    overflow:visible;
+}
+
+.min-img-size{
+    min-width:60px;
+}
+
+.menu-icon{
+    border-radius: 4px; 
+    background-color: #152259; 
+}
+.bg-blue-dark{
+    background-color: #152259;
+    border-color: #152259;
+}
+.bg-blue-dark:checked{
+    background-color: #152259;
+    border-color: #152259;
+}
+.menu-icon:hover,.menu-icon:active, .menu-icon:focus-visible{
+    background:#509CDB;
+}
+.rounded-50{
+    border-radius: 50%;
+}
+
+.nav-bar{
+    background-color:#6A9CD1;
+}
+.main-frame,h1{
+    display:grid;
+    grid-template-columns: 25% auto ;
+    background-color: aqua;
+}
+.aside-bar{
+    display:grid;
+    grid-template-columns: 25% auto ;
+    background-color: rgb(211, 151, 0);
+}
+.bg-search{
+    background-color: #E0E0E0;
+}
+.bg-card-teal{
+    background-color: #4F87AF;
+}
+.bg-card-blue-darker{
+    background-color: #01417F;
+}
+.bg-card-yellow-taxi{
+    background-color: #EFCD14;
+}
+.input-header{
+    border:none;
+}
+.card-footer-text{
+    background-color:#DDDDDD;
+}
+.card-title-height{
+    min-height: 14rem;
+}
+.btn-focus:focus-visible{
+    background-color: #DDDDDD;
+}
+.btn:focus:not(:focus-visible) {
+    box-shadow: none;
+  }
+.px-50{
+    
+    padding-left:6vw;
+    padding-right:auto;
+}
+.w-15{
+    width:15%;
+}
+.vw-50{
+    width:50vw;
+}
