@@ -10,12 +10,12 @@
     <link rel="stylesheet" href="./styles/style.css">
 </head>
 <body>
-    <main>
-        <div class="container d-flex align-items-center justify-content-center vh-auto vw-50 ">
+    <div class="d-flex">
+        <div class="form flex-fill v-w-50">
             <div class="card mb-3 p-1">
                 <div class="d-flex align-items-center bg-card-blue-darker text-light px-4 gap-1 ">
                     <img src="./assets/img/isftlogo.jpg" alt="Logo del isft 225" class="w-15 h-auto rounded-50 ml-5  p-2" />
-                    <h5 class="text-sm-center">Instituto Superior de Formación Técnica 225</h5>
+                    <h6 class="text-sm-center">Instituto Superior de Formación Técnica 225</h6>
                 </div>
                 <div class="card-body py-5 px-md-5">
                     <form method="post" action="login.php">
@@ -55,9 +55,9 @@
         
                 </div>
                 
+                </div>
             </div>
         </div>
-    </main>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
   </body>
 </html>
