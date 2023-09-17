@@ -29,28 +29,46 @@
     
     // Obtener los datos del formulario
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        $cod_carrera = $_POST['cod_carrera'];
-        $nro_resolucion = $_POST['nro_resolucion'];
-        $nro_plan = $_POST['nro_plan'];
-        $denominacion = $_POST['denominacion'];
-        $titulo_otorgado = $_POST['titulo_otorgado'];
-        $estado_carrera = $_POST['estado_carrera'];
-        $duracion = $_POST['duracion'];
+        $cod_carrera_n = $_POST['cod_carrera'];
+        $nro_resolucion_n = $_POST['nro_resolucion'];
+        $nro_plan_n = $_POST['nro_plan'];
+        $denominacion_n = $_POST['denominacion'];
+        $titulo_otorgado_n = $_POST['titulo_otorgado'];
+        $duracion_n = $_POST['duracion'];
+        $estado_carrera_n = $_POST['estado_carrera'];
+        //Datos INT
         $val_min_aprobacion = $_POST['val_min_aprobacion'];
         $val_max_aprobacion = $_POST['val_max_aprobacion'];
+
+        //Evitar inyeccion SQL
+        $cod_carrera = htmlspecialchars($cod_carrera_n, ENT_QUOTES, 'UTF-8');
+        $nro_resolucion = htmlspecialchars($nro_resolucion_n, ENT_QUOTES, 'UTF-8');
+        $nro_plan = htmlspecialchars($nro_plan_n, ENT_QUOTES, 'UTF-8');
+        $denominacion = htmlspecialchars($denominacion_n, ENT_QUOTES, 'UTF-8');
+        $titulo_otorgado = htmlspecialchars($titulo_otorgado_n, ENT_QUOTES, 'UTF-8');
+        $duracion = htmlspecialchars($duracion_n, ENT_QUOTES, 'UTF-8');
+        $estado_carrera = htmlspecialchars($estado_carrera_n, ENT_QUOTES, 'UTF-8');
+        //Sentencia SQL para insertar los datos
     
-        $sql = "INSERT INTO carrera (cod_carrera, nro_resolucion, nro_plan, denominacion, titulo_otorgado, estado_carrera, duracion, val_min_aprobacion, val_max_aprobacion) VALUES ('$cod_carrera', '$nro_resolucion', '$nro_plan', '$denominacion','$titulo_otorgado', '$estado_carrera', '$duracion','$val_min_aprobacion','$val_max_aprobacion')";
-    
-        if ($conn->query($sql) === TRUE) {
-            header("Location:ingresarcarrera.php");
-            exit();
-        } else {
-            echo "Error al insertar el registro: " . $conn->error;
-            header("Location:index.php");
+        $sql = "INSERT INTO carrera (cod_carrera, nro_resolucion, nro_plan, denominacion, titulo_otorgado, duracion, val_min_aprobacion, val_max_aprobacion, estado_carrera) VALUES (?, ?, ?, ?, ? ,? ,?, ? ,? )";
+        $stmt->bind_param("sssssssss", $cod_carrera, $nro_resolucion, $nro_plan, $denominacion, $titulo_otorgado, $duracion, $val_min_aprobacion, $val_max_aprobacion, $estado_carrera);
+
+        if ($stmt->execute()){
+            if ($stmt->affected_rows > 0) {
+                header("Location:ingresarcarrera.php");
+                exit();
+            }else{
+                echo "Error al insertar el registro";
+            }
+        } else{
+                echo "Error al ejecutar la consulta: " . $stmt->error;
         }
+        $stmt->close();
     }
-    
-    ?>
+
+$conn->close();
+?>
+
 <main>
     <!-- Contenedor principal -->
     <div class="d-flex flex-nowrap sidebar-height"> 
