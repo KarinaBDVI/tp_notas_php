@@ -8,66 +8,67 @@
     <link rel="stylesheet" href="./styles/style.css">
 </head>
 <body>
-    <?php 
-    require('./conexion.php');
-    include "headernosearch.php";
-    $sql = "CREATE TABLE IF NOT EXISTS carrera (
-         id_carrera INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY, 
-        cod_carrera varchar(20) NOT NULL,
-        nro_resolucion varchar(20) NOT NULL,
-        nro_plan varchar(20) NOT NULL,
-        denominacion VARCHAR(100) NOT NULL,
-        titulo_otorgado VARCHAR(50) NOT NULL,
-        duracion VARCHAR(10) NOT NULL,
-        val_min_aprobacion INT(2),
-        val_max_aprobacion INT(2),
-        estado_carrera VARCHAR(10) NOT NULL
-    )";
-    if ($conn->query($sql) === false ) {
-        echo "Error al crear la tabla: " . $conn->error;
-    }; 
-    
-    // Obtener los datos del formulario
-    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        $cod_carrera_n = $_POST['cod_carrera'];
-        $nro_resolucion_n = $_POST['nro_resolucion'];
-        $nro_plan_n = $_POST['nro_plan'];
-        $denominacion_n = $_POST['denominacion'];
-        $titulo_otorgado_n = $_POST['titulo_otorgado'];
-        $duracion_n = $_POST['duracion'];
-        $estado_carrera_n = $_POST['estado_carrera'];
-        //Datos INT
-        $val_min_aprobacion = $_POST['val_min_aprobacion'];
-        $val_max_aprobacion = $_POST['val_max_aprobacion'];
+<?php
+require('./conexion.php');
 
-        //Evitar inyeccion SQL
-        $cod_carrera = htmlspecialchars($cod_carrera_n, ENT_QUOTES, 'UTF-8');
-        $nro_resolucion = htmlspecialchars($nro_resolucion_n, ENT_QUOTES, 'UTF-8');
-        $nro_plan = htmlspecialchars($nro_plan_n, ENT_QUOTES, 'UTF-8');
-        $denominacion = htmlspecialchars($denominacion_n, ENT_QUOTES, 'UTF-8');
-        $titulo_otorgado = htmlspecialchars($titulo_otorgado_n, ENT_QUOTES, 'UTF-8');
-        $duracion = htmlspecialchars($duracion_n, ENT_QUOTES, 'UTF-8');
-        $estado_carrera = htmlspecialchars($estado_carrera_n, ENT_QUOTES, 'UTF-8');
-        //Sentencia SQL para insertar los datos
-    
-        $sql = "INSERT INTO carrera (cod_carrera, nro_resolucion, nro_plan, denominacion, titulo_otorgado, duracion, val_min_aprobacion, val_max_aprobacion, estado_carrera) VALUES (?, ?, ?, ?, ? ,? ,?, ? ,? )";
-        $stmt = $conn->prepare($sql);
-        $stmt->bind_param("sssssssss", $cod_carrera, $nro_resolucion, $nro_plan, $denominacion, $titulo_otorgado, $duracion, $val_min_aprobacion, $val_max_aprobacion, $estado_carrera);
+$sql = "CREATE TABLE IF NOT EXISTS carrera (
+    id_carrera INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY, 
+    cod_carrera varchar(20) NOT NULL,
+    nro_resolucion varchar(20) NOT NULL,
+    nro_plan varchar(20) NOT NULL,
+    denominacion VARCHAR(100) NOT NULL,
+    titulo_otorgado VARCHAR(50) NOT NULL,
+    duracion VARCHAR(10) NOT NULL,
+    val_min_aprobacion INT(2),
+    val_max_aprobacion INT(2),
+    estado_carrera VARCHAR(10) NOT NULL
+)";
+if ($conn->query($sql) === false ) {
+    echo "Error al crear la tabla: " . $conn->error;
+}; 
 
-        if ($stmt->execute()){
-            if ($stmt->affected_rows > 0) {
-                header("Location:ingresarcarrera.php");
-                exit();
-            }else{
-                echo "Error al insertar el registro";
-            }
-        } else{
-                echo "Error al ejecutar la consulta: " . $stmt->error;
+// Obtener los datos del formulario
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $cod_carrera_n = $_POST['cod_carrera'];
+    $nro_resolucion_n = $_POST['nro_resolucion'];
+    $nro_plan_n = $_POST['nro_plan'];
+    $denominacion_n = $_POST['denominacion'];
+    $titulo_otorgado_n = $_POST['titulo_otorgado'];
+    $duracion_n = $_POST['duracion'];
+    $estado_carrera_n = $_POST['estado_carrera'];
+    //Datos INT
+    $val_min_aprobacion = $_POST['val_min_aprobacion'];
+    $val_max_aprobacion = $_POST['val_max_aprobacion'];
+
+    //Evitar inyeccion SQL
+    $cod_carrera = htmlspecialchars($cod_carrera_n, ENT_QUOTES, 'UTF-8');
+    $nro_resolucion = htmlspecialchars($nro_resolucion_n, ENT_QUOTES, 'UTF-8');
+    $nro_plan = htmlspecialchars($nro_plan_n, ENT_QUOTES, 'UTF-8');
+    $denominacion = htmlspecialchars($denominacion_n, ENT_QUOTES, 'UTF-8');
+    $titulo_otorgado = htmlspecialchars($titulo_otorgado_n, ENT_QUOTES, 'UTF-8');
+    $duracion = htmlspecialchars($duracion_n, ENT_QUOTES, 'UTF-8');
+    $estado_carrera = htmlspecialchars($estado_carrera_n, ENT_QUOTES, 'UTF-8');
+    //Sentencia SQL para insertar los datos
+
+    $sql = "INSERT INTO carrera (cod_carrera, nro_resolucion, nro_plan, denominacion, titulo_otorgado, duracion, val_min_aprobacion, val_max_aprobacion, estado_carrera) VALUES (?, ?, ?, ?, ? ,? ,?, ? ,? )";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("sssssssss", $cod_carrera, $nro_resolucion, $nro_plan, $denominacion, $titulo_otorgado, $duracion, $val_min_aprobacion, $val_max_aprobacion, $estado_carrera);
+
+    if ($stmt->execute()){
+        if ($stmt->affected_rows > 0) {
+            header("Location: index.php");
+            exit();
+        }else{
+            echo "Error al insertar el registro";
         }
-        $stmt->close();
+    } else{
+            echo "Error al ejecutar la consulta: " . $stmt->error;
     }
-
+    $stmt->close();
+}
 $conn->close();
+//Tuve que poner aca el header para que no tire error
+include 'headernosearch.php';
 ?>
 
 <main>

@@ -1,10 +1,14 @@
 <?php
 // Configuración de la conexión a la base de datos
 
-$dbhost = 'localhost';
+/* $dbhost = 'localhost';
 $dbuser = 'c2331051_isft';
 $dbpass = '48muKOwiwo';
-$dbname = 'c2331051_isft';
+$dbname = 'c2331051_isft'; */
+$dbhost = 'localhost';
+$dbuser = 'root';
+$dbpass = '';
+$dbname = 'c2331051_isft'; 
     
 // Crear la conexión
 $conn = new mysqli($dbhost, $dbuser, $dbpass, $dbname);
@@ -13,3 +17,4 @@ $conn = new mysqli($dbhost, $dbuser, $dbpass, $dbname);
 if ($conn->connect_error) {
     die("La conexión falló: " . $conn->connect_error);
 }
+?>
