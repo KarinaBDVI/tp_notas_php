@@ -1,0 +1,20 @@
+.custom-button {
+    background-color: #6A9CD1;
+    color: #fff;
+    border-color: #6A9CD1;
+}
+
+.custom-button:hover {
+    background-color: #152259;
+    /* Cambia el color al pasar el mouse sobre el botón Editar */
+}
+
+.custom-button:active {
+    background-color: #152259;
+    /* Cambia el color al hacer click sobre el botón Editar */
+}
+
+.custom-button:focus-visible {
+    background-color: #152259;
+    /* Cambia el color al hacer click sobre el botón Editar */
+}
