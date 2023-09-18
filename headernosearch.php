@@ -1,14 +1,4 @@
-<?php ?>
-<!DOCTYPE html>
-<html lang="es"> <!-- Este es una página en español -->
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Home-ISFT 225</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
-    <link rel="stylesheet" href="./styles/style.css">
-  </head>
-<body>
+
 <header>
 <div class="d-flex menu  min-height flex-fill justify-content-lg-between">
   <div class="col-3 "></div>
