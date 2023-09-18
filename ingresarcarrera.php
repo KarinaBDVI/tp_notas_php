@@ -51,6 +51,7 @@
         //Sentencia SQL para insertar los datos
     
         $sql = "INSERT INTO carrera (cod_carrera, nro_resolucion, nro_plan, denominacion, titulo_otorgado, duracion, val_min_aprobacion, val_max_aprobacion, estado_carrera) VALUES (?, ?, ?, ?, ? ,? ,?, ? ,? )";
+        $stmt = $conn->prepare($sql);
         $stmt->bind_param("sssssssss", $cod_carrera, $nro_resolucion, $nro_plan, $denominacion, $titulo_otorgado, $duracion, $val_min_aprobacion, $val_max_aprobacion, $estado_carrera);
 
         if ($stmt->execute()){
