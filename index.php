@@ -12,7 +12,7 @@
     ?>
 <main>
     <!-- Contenedor principal -->
-    <div class="d-flex flex-nowrap sidebar-height"> 
+    <div class=" d-flex flex-nowrap sidebar-height"> 
       <!-- Aside/Wardrobe/Sidebar Menu --> 
       <?php
       include "sidebar.php"; 

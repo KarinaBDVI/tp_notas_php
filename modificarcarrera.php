@@ -8,14 +8,21 @@
     <link rel="stylesheet" href="./styles/style.css">
 </head>
 <body>
-    <?php 
+<?php 
     require('./conexion.php');
     include "headernosearch.php";
+?>
+<?php 
     // Obtener el ID del registro a editar
-    $id_carrera = $_GET['id_carrera'];
+$id_carrera = $_GET['id_carrera'];
 
-    //Procesar la actualización del registro
+    if ($id_carrera === null || !is_numeric($id_carrera)) {
+        header("Location: tablalistadocarreras.php");
+        // Exit para detener la ejecución
+        exit();
+    }
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        // Obtener los valores de los campos del formulario
         $new_cod_carrera = $_POST['cod_carrera'];
         $new_nro_resolucion = $_POST['nro_resolucion'];
         $new_nro_plan = $_POST['nro_plan'];
@@ -25,29 +32,50 @@
         $new_duracion = $_POST['duracion'];
         $new_val_min_aprobacion = $_POST['val_min_aprobacion'];
         $new_val_max_aprobacion = $_POST['val_max_aprobacion'];
-
-    // Consultar los datos
-
-    $sql = "UPDATE carrera 
-            SET cod_carrera='$cod_carrera', 
-            nro_resolucion='$nro_resolucion', 
-            nro_plan='$nro_plan', 
-            denominacion='$denominacion', 
-            titulo_otorgado='$titulo_otorgado', 
-            estado_carrera='$estado_carrera', 
-            duracion='$duracion', 
-            val_min_aprobacion='$val_min_aprobacion', 
-            val_max_aprobacion='$val_max_aprobacion' 
-            WHERE id_carrera=$id_carrera";
-
-    if ($conn->query($sql) === TRUE ) {
-        header("Location: index.php");
-        exit();
-    } else {
-        echo "Error al actualizar el registro: " . $conn->error;
+    
+        // Consulta SQL con parámetros
+        $sql = "UPDATE carrera SET cod_carrera=?, 
+                nro_resolucion=?, 
+                nro_plan=?, 
+                denominacion=?, 
+                titulo_otorgado=?, 
+                estado_carrera=?, 
+                duracion=?, 
+                val_min_aprobacion=?, 
+                val_max_aprobacion=? 
+                WHERE id_carrera=?";
+    
+        // Preparar la consulta
+        $stmt = $conn->prepare($sql);
+    
+        // Vincular los parámetros
+        $stmt->bind_param("sssssssssi", $new_cod_carrera, 
+                                        $new_nro_resolucion, 
+                                        $new_nro_plan, 
+                                        $new_denominacion, 
+                                        $new_titulo_otorgado, 
+                                        $new_estado_carrera, 
+                                        $new_duracion, 
+                                        $new_val_min_aprobacion, 
+                                        $new_val_max_aprobacion, 
+                                        $id_carrera);
+    
+        // Ejecutar la consulta
+        if ($stmt->execute()) {
+            if ($stmt->affected_rows > 0) {
+                header("Location: tablalistadocarreras.php");
+                exit();
+            } else {
+                echo "No se realizó ninguna actualización.";
+            }
+        } else {
+            echo "Error al ejecutar la consulta: " . $stmt->error;
+        }
+    
+        // Cerrar la consulta
+        $stmt->close();
     }
-    $conn->close();
-}
+$conn->close();
 
 // Obtener los datos del registro actual
 $conn = new mysqli($dbhost, $dbuser, $dbpass, $dbname);
@@ -55,7 +83,7 @@ if ($conn->connect_error) {
     die("La conexión falló: " . $conn->connect_error);
 }
 
-$sql = "SELECT cod_carrera, nro_resolucion, nro_plan, denominacion, titulo_otorgado, estado_carrera, duracion, val_min_aprobacion, val_max_aprobacion 
+$sql = "SELECT id_carrera, cod_carrera, nro_resolucion, nro_plan, denominacion, titulo_otorgado, estado_carrera, duracion, val_min_aprobacion, val_max_aprobacion 
         FROM carrera 
         WHERE id_carrera=$id_carrera";
 $result = $conn->query($sql);
@@ -63,7 +91,7 @@ $row = $result->fetch_assoc();
 // Cerrar la conexión
 $conn->close();
     
-    ?>
+?>
 <main>
     <!-- Contenedor principal -->
     <div class="d-flex flex-nowrap sidebar-height"> 
@@ -83,7 +111,7 @@ $conn->close();
                     </h6> -->
                 </div>
                 <div>
-                    <form class="row g-3 m-4" method="post" action="modificarcarrera.php?=<?=$id_carrera?>" method="POST">
+                    <form class="row g-3 m-4" action="modificarcarrera.php?id_carrera=<?=$id_carrera?>" method="POST">
                         <!-- 
                         <div class="col-md-6 position-relative">
                             <label class="form-label text-black-50" for="id_carrera">Id de Carrera*:</label>
@@ -123,8 +151,9 @@ $conn->close();
                         </div>
                         <div class="col-md-3 position-relative">
                             <label class="form-label text-black-50" for="duracion">Duración*:</label>
-                            <input class="form-control" type="text" name="duracion" id="duracion" required>
+                            <input class="form-control" type="text" name="duracion" id="duracion" value="<?= $row['duracion'] ?>">
                         </div>
+                        
                         <div class="col-md-4 position-relative">
                           <label class="form-label text-black-50 text-nowrap" for="val_min_aprobacion">Valor mínimo de aprobación*:</label>
                           <select class="form-select form-select mb-3" name="val_min_aprobacion" id="val_min_aprobacion" aria-label="select_val_min_aprobacion" value="<?= $row['select_val_min_aprobacion'] ?>">
@@ -166,7 +195,7 @@ $conn->close();
                         </div>
                         <div class="col-md-6 offset-2 mb-5">
                             <div class="d-flex mb-5 gap-2 justify-content-between align-content-center">
-                                <a href=#><button class='btn btn-primary menu-icon border-0 px-4'>Volver</button></a>
+                                <a href='tablalistadocarreras.php'><button class='btn btn-primary menu-icon border-0 px-4'>Volver</button></a>
                                 <input class="btn btn-primary px-4 nav-bar border-0 text-wrap" type="submit" value="Actualizar">
                                         
                             </div>

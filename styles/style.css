@@ -23,6 +23,7 @@ body{
 
 .min-img-size{
     min-width:60px;
+    max-width:100px
 }
 
 .menu-icon{

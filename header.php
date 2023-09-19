@@ -1,9 +1,8 @@
-
 <header>
-<div class="d-flex menu  min-height flex-fill justify-content-lg-between">
-  <div class="col-3 "></div>
+<div class="d-flex min-height nav-bar flex-fill justify-content-lg-between">
+  <div class="col-3 menu"></div>
   <!-- Buscador -->
-    <div class="col-2 align-self-end col-md-5 col-lg-auto flex-fill navbar navbar-expand-md nav-bar vh-50 pt-4 p-3 ">
+    <div class="col-2 nav-bar align-self-end col-md-5 col-lg-auto flex-fill navbar navbar-expand-md nav-bar vh-50 pt-4 p-3 ">
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>

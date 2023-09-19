@@ -11,6 +11,7 @@
 <?php
 require('./conexion.php');
 
+
 $sql = "CREATE TABLE IF NOT EXISTS carrera (
     id_carrera INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY, 
     cod_carrera varchar(20) NOT NULL,
@@ -67,7 +68,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $stmt->close();
 }
 $conn->close();
-//Tuve que poner aca el header para que no tire error
 include 'headernosearch.php';
 ?>
 
@@ -91,19 +91,6 @@ include 'headernosearch.php';
                 </div>
                 <div>
                     <form class="row g-3 m-4" method="post" action="ingresarcarrera.php">
-
-            <!-- Ver: si hacer autoincremental; si se hace, descomentar -->
-
-                      <!-- <div class="col-md-6 position-relative">
-                        <label class="form-label text-black-50" for="id_carrera">Id de Carrera*:</label>
-                        <input class="form-control" type="text" name="id_carrera" id="id_carrera" required>
-                      </div> -->
-                  <!-- ya está denominacion de carrera, iria igual nombre? -->
-                         <!-- <div class="col-md-6 position-relative">
-                            <label class="form-label text-black-50" for="nombre_carrera">Nombre de Carrera*:</label>
-                            <input class="form-control" type="text" name="nombre_carrera" id="nombre_carrera" required>
-                        </div>  -->
-                        
                         <div class="col-md-6 position-relative">
                             <label class="form-label text-black-50" for="cod_carrera">Código de  Carrera*:</label>
                             <input class="form-control" type="text" name="cod_carrera" id="cod_carrera" required>

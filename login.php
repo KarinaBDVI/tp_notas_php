@@ -11,6 +11,7 @@
 </head>
 <body>
     <div class="d-flex">
+        <!-- Login -->
         <div class="form flex-fill v-w-50">
             <div class="card mb-3 p-1">
                 <div class="d-flex align-items-center bg-card-blue-darker text-light px-4 gap-1 ">
@@ -57,6 +58,7 @@
                 
                 </div>
             </div>
+            <!-- Fin de Login -->
         </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
   </body>
