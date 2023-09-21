@@ -5,6 +5,7 @@
 $dbuser = 'c2331051_isft';
 $dbpass = '48muKOwiwo';
 $dbname = 'c2331051_isft'; */
+
 $dbhost = 'localhost';
 $dbuser = 'root';
 $dbpass = '';

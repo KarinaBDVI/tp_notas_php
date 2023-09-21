@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="./styles/style.css">
 </head>
 <body>
-    <?php include "header.php"
+    <?php include "headernosearch.php"
     ?>
 <main>
     <!-- Contenedor principal -->
@@ -88,7 +88,7 @@
                               <option selected>Activo</option>
                               <option value="1">Activo</option>
                               <option value="2">Inactivo</option>
-                        </select>
+                            </select>
                         </div>
                         <div class="col-md-8 gap-2 offset-3 mb-5">
                             <div class="d-flex mb-5 gap-2 justify-content-evenly align-content-center">
@@ -110,7 +110,6 @@
         <!-- Fin de contenido -->
       </div>
       <!-- Fin de contenedor principal -->
- </main>
  </main>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
   </body>
